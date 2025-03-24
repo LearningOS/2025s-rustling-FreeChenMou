@@ -23,8 +23,6 @@ fn main() {
     for _ in 0..10 {
         let status_shared = Arc::clone(&count);
         let handle = thread::spawn(move || {
-            thread::sleep(Duration::from_millis(250));
-
             let mut t = status_shared.lock().unwrap();
             *t += 1;
         });
@@ -35,7 +33,6 @@ fn main() {
         // TODO: Print the value of the JobStatus.jobs_completed. Did you notice
         // anything interesting in the output? Do you have to 'join' on all the
         // handles?
-        break;
     }
     println!("jobs completed {}", count.lock().unwrap());
 }

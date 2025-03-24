@@ -41,11 +41,11 @@ where
         self.items.push(value);
         self.count += 1;
 
-        let mut idx = self.count;
-        while idx > 1 && (self.comparator)(&self.items[idx], &self.items[self.parent_idx(idx)]) {
-            let parent_idx = self.parent_idx(idx);
-            self.items.swap(idx, parent_idx);
-            idx = self.parent_idx(idx);
+        let mut index = self.count;
+        while index > 1 && (self.comparator)(&self.items[index], &self.items[self.parent_idx(index)]) {
+            let parent_idx = self.parent_idx(index);
+            self.items.swap(index, parent_idx);
+            index = self.parent_idx(index);
         }
     }
 
