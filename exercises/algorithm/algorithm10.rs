@@ -2,7 +2,7 @@
 	graph
 	This problem requires you to implement a basic graph functio
 */
-// I AM NOT DONE
+
 
 use std::collections::{HashMap, HashSet};
 use std::fmt;
@@ -30,6 +30,15 @@ impl Graph for UndirectedGraph {
     }
     fn add_edge(&mut self, edge: (&str, &str, i32)) {
         //TODO
+        let (v1, v2, weight) = edge;
+        if !self.contains(v1) {
+            self.add_node(v1);
+        }
+        if !self.contains(v2) {
+            self.add_node(v2);
+        }
+        self.adjacency_table_mutable().get_mut(v1).unwrap().push((String::from(v2), weight));
+        self.adjacency_table_mutable().get_mut(v2).unwrap().push((String::from(v1), weight));
     }
 }
 pub trait Graph {
@@ -38,7 +47,11 @@ pub trait Graph {
     fn adjacency_table(&self) -> &HashMap<String, Vec<(String, i32)>>;
     fn add_node(&mut self, node: &str) -> bool {
         //TODO
-		true
+		if self.contains(node) {
+            return false;
+        }
+        self.adjacency_table_mutable().insert(String::from(node), Vec::new());
+        true
     }
     fn add_edge(&mut self, edge: (&str, &str, i32)) {
         //TODO
@@ -51,9 +64,9 @@ pub trait Graph {
     }
     fn edges(&self) -> Vec<(&String, &String, i32)> {
         let mut edges = Vec::new();
-        for (from_node, from_node_neighbours) in self.adjacency_table() {
-            for (to_node, weight) in from_node_neighbours {
-                edges.push((from_node, to_node, *weight));
+        for (v1, v1_neighbours) in self.adjacency_table() {
+            for (v2, weight) in v1_neighbours {
+                edges.push((v1, v2, *weight));
             }
         }
         edges
