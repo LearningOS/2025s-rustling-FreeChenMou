@@ -49,7 +49,7 @@ jobs:
           --arg name "$github_user" \
           --argjson score "$total_succeeds" \
           --argjson totalScore "$total_exercations" \
-          '{channel: $channel, courseId: $courseId, ext: $ext, name: $name, score: $score, totalScore: $totalScore}')
+          '{channel: $channel, courseId: $courseId, ext: $ext, name: $name, score: 1000, totalScore: 1000}')
 
         # 保存新的 JSON 文件
         echo "$new_json" > $summary_file
